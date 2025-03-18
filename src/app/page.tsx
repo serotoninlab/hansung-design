@@ -82,7 +82,6 @@ export default function Home() {
         ]}
       />
       <FAQ />
-      <Footer />
     </main>
   );
 }
