@@ -71,109 +71,120 @@ const FAQ = () => {
   } | null>(faqData[1].questions[0]);
 
   return (
-    <section className="py-20 bg-gray-100">
-      <div className="container mx-auto flex gap-8 px-4">
-        <div className="w-1/3">
-          {faqData.map((item) => (
-            <div
-              key={item.category}
-              className={`mb-4 ${openCategory === item.category && 'shadow'}`}
-            >
-              <button
-                onClick={() =>
-                  setOpenCategory(
-                    openCategory === item.category ? null : item.category
-                  )
-                }
-                className={`w-full text-left p-3 flex justify-between items-center border rounded-lg shadow bg-white ${
-                  openCategory === item.category && 'shadow-none rounded-b-none'
-                } flex flex-col`}
+    <section className="py-[5rem] md:py-[10rem] bg-gray-100">
+      <div className="container mx-auto px-4">
+        <h1 className="text-2.25 font-bold mb-8 sm:text-1.7 text-center md:text-left">
+          자주 묻는 질문
+        </h1>
+        <div className="flex flex-col md:flex-row gap-[2rem] md:gap-[5rem]">
+          {/* Categories and Questions - Full width on mobile, 1/3 on desktop */}
+          <div className="w-full md:w-1/3">
+            {faqData.map((item) => (
+              <div
+                key={item.category}
+                className={`mb-[1rem] md:mb-[2rem] ${
+                  openCategory === item.category && 'shadow'
+                }`}
               >
-                <div className="flex items-center justify-between text-[1.25rem] font-medium w-full">
-                  <span>{item.category}</span>
+                <button
+                  onClick={() =>
+                    setOpenCategory(
+                      openCategory === item.category ? null : item.category
+                    )
+                  }
+                  className={`w-full text-left p-[1rem] md:p-[1.5rem] flex justify-between items-center border rounded-lg shadow bg-white ${
+                    openCategory === item.category &&
+                    'shadow-none rounded-b-none'
+                  } flex flex-col`}
+                >
+                  <div className="flex items-center justify-between text-1 md:text-1.25 font-medium w-full">
+                    <span>{item.category}</span>
+                    <span>
+                      {openCategory === item.category ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M18 15L12 9L6 15"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M6 9L12 15L18 9"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </div>
 
-                  <span>
-                    {openCategory === item.category ? (
+                  {openCategory === item.category && (
+                    <div className="w-full flex justify-center mt-[1rem]">
                       <svg
+                        className="w-5/6"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
+                        height="2"
+                        viewBox="0 0 346 2"
                         fill="none"
                       >
-                        <path
-                          d="M18 15L12 9L6 15"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
+                        <path d="M346 1L-1.4782e-05 0.99997" stroke="#E0E0E0" />
                       </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M6 9L12 15L18 9"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </span>
-                </div>
+                    </div>
+                  )}
+                </button>
 
                 {openCategory === item.category && (
-                  <div className="w-full flex justify-center mt-[1rem]">
-                    <svg
-                      className="w-5/6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="2"
-                      viewBox="0 0 346 2"
-                      fill="none"
-                    >
-                      <path d="M346 1L-1.4782e-05 0.99997" stroke="#E0E0E0" />
-                    </svg>
+                  <div className="pl-[1rem] md:pl-[1.5rem] py-[1rem] bg-white rounded-b-lg">
+                    {item.questions.map((q) => (
+                      <button
+                        key={q.question}
+                        onClick={() => setSelectedQuestion(q)}
+                        className={`block w-full text-left p-[0.75rem] md:p-[1rem] text-0.875 md:text-1 ${
+                          selectedQuestion?.question === q.question
+                            ? 'font-bold text-black'
+                            : 'text-gray-600'
+                        }`}
+                      >
+                        {q.question}
+                      </button>
+                    ))}
                   </div>
                 )}
-              </button>
+              </div>
+            ))}
+          </div>
 
-              {openCategory === item.category && (
-                <div className="pl-4 py-2 bg-white rounded-b-lg">
-                  {item.questions.map((q) => (
-                    <button
-                      key={q.question}
-                      onClick={() => setSelectedQuestion(q)}
-                      className={`block w-full text-left p-2 ${
-                        selectedQuestion?.question === q.question
-                          ? 'font-bold text-black'
-                          : 'text-gray-600'
-                      }`}
-                    >
-                      {q.question}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="w-2/3 bg-white rounded-lg shadow p-6">
-          {selectedQuestion && (
-            <div>
-              <h2 className="text-xl font-bold mb-4">
-                {selectedQuestion.question}
-              </h2>
-              <p className="text-gray-700">{selectedQuestion.answer}</p>
-            </div>
-          )}
+          {/* Answer Section - Full width on mobile, 2/3 on desktop */}
+          <div className="w-full md:w-2/3 bg-white rounded-lg shadow p-[1.5rem] md:p-[2.5rem]">
+            {selectedQuestion && (
+              <div>
+                <h2 className="text-1.25 md:text-1.5 font-bold mb-[1.5rem]">
+                  {selectedQuestion.question}
+                </h2>
+                <p className="text-1 text-gray-700">
+                  {selectedQuestion.answer}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
