@@ -34,14 +34,13 @@ export default function LedDisplay() {
         variant="photo"
       />
 
-      {/* Hero Section */}
       <div className="relative w-full h-[50vh]">
         <Image
           src="/images/led-display.png"
-          alt="전자게시대"
           layout="fill"
           objectFit="cover"
           className="z-0"
+          alt="디지털사이니지"
         />
         <div className="absolute flex flex-col top-1/2 left-1.9/4 transform -translate-x-1/2 -translate-y-1/2 lg:text-3.75 sm:text-1.7 z-10 text-white gap-[1.25rem]">
           <div className="text-1.25 font-weight-500">전자게시대</div>

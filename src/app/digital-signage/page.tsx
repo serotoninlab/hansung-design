@@ -28,10 +28,9 @@ export default function DigitalSignage() {
         variant="photo"
       />
 
-      {/* Hero Section */}
       <div className="relative w-full h-[50vh]">
         <Image
-          src="/images/digital-signage.png"
+          src="/images/digital-signage-main.png"
           alt="디지털사이니지"
           layout="fill"
           objectFit="cover"

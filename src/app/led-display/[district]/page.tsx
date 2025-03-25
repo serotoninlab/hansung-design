@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Nav from '../../components/Nav';
-import ItemList from '../../components/ItemList';
+import Nav from '../../../components/Nav';
+import ItemList from '../../../components/ItemList';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 const fadeInUp = {
@@ -15,7 +16,7 @@ const fadeInUp = {
   },
 };
 
-interface DesignItem {
+interface DistrictItem {
   id: number;
   title: string;
   subtitle: string;
@@ -26,14 +27,14 @@ interface DesignItem {
   spots: number | string;
 }
 
-const designItems: DesignItem[] = Array(12)
+const districtItems: DistrictItem[] = Array(12)
   .fill(null)
   .map((_, index) => ({
     id: index + 1,
     title: '울림픽대교 남단사거리 앞',
     subtitle: '(남단 유수지앞)',
-    image: '/images/public-design.png',
-    tags: ['전시대', '울산구'],
+    image: '/images/led-display.png',
+    tags: ['LED전자게시대', '방이동'],
     location: '방이동',
     status: '진행중',
     spots: index < 4 ? 12 - index * 3 : '-',
@@ -67,7 +68,9 @@ const ViewTypeButton = ({
   </button>
 );
 
-export default function PublicDesign() {
+export default function DistrictPage() {
+  const params = useParams();
+  const district = params.district as string;
   const [viewType, setViewType] = useState<'location' | 'gallery' | 'list'>(
     'gallery'
   );
@@ -78,7 +81,7 @@ export default function PublicDesign() {
 
   const renderGalleryView = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {designItems.map((item, index) => (
+      {districtItems.map((item, index) => (
         <div key={index} className="flex flex-col">
           <div className="relative aspect-[1/1] w-full overflow-hidden rounded-lg">
             <Image
@@ -112,7 +115,17 @@ export default function PublicDesign() {
       <Nav variant="default" />
 
       <div className="container mx-auto px-4 pt-[7rem]">
-        <h1 className="text-2.25 font-bold mb-8">공공디자인</h1>
+        <div className="mb-8">
+          <div className="flex items-center gap-2 text-gray-600 mb-2">
+            <span>LED 전자게시대</span>
+            <span>/</span>
+            <span>{district}</span>
+          </div>
+          <h2 className="text-2.25 font-bold">{district}</h2>
+          <p className="text-gray-600 mt-4">전화번호: 0000-000-0000</p>
+          <p className="text-gray-600">주소: 서울특별시 강동구 000-0</p>
+          <p className="text-gray-600">노선위치번호:</p>
+        </div>
 
         {/* View Type Selector */}
         <div className="flex items-center gap-4 mb-8 border-b border-gray-200 pb-4">
@@ -145,9 +158,9 @@ export default function PublicDesign() {
         <motion.div initial="initial" animate="animate" variants={fadeInUp}>
           {viewType === 'list' ? (
             <ItemList
-              items={designItems}
+              items={districtItems}
               onItemSelect={handleItemSelect}
-              showFooterInfo={false}
+              showFooterInfo={true}
             />
           ) : (
             renderGalleryView()
