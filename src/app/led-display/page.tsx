@@ -1,101 +1,90 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Nav from '../../components/Nav';
+import RollingBanner from '../../components/RollingBanner';
 
-const fadeInUp = {
-  initial: { y: 60, opacity: 0 },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.6, ease: 'easeOut' },
+interface District {
+  id: number;
+  name: string;
+  description: string;
+  count: number;
+}
+
+const districts: District[] = [
+  {
+    id: 1,
+    name: '강동구',
+    description: '울림픽대교 남단사거리 앞 외 3건',
+    count: 4,
   },
-};
-
-const districts = [
-  { name: '전체', href: '/digital-signage' },
-  { name: '강동구', href: '/digital-signage?district=gangdong' },
-  { name: '광진구', href: '/digital-signage?district=gwangjin' },
-  { name: '동작구', href: '/digital-signage?district=dongjak' },
-  { name: '관악구', href: '/digital-signage?district=gwanak' },
-  { name: '동대문구', href: '/digital-signage?district=dongdaemun' },
-  { name: '강북구', href: '/digital-signage?district=gangbuk' },
-  { name: '영등포구', href: '/digital-signage?district=yeongdeungpo' },
+  { id: 2, name: '송파구', description: '잠실종합운동장 앞 외 5건', count: 6 },
+  { id: 3, name: '강남구', description: '강남역 사거리 외 7건', count: 8 },
+  { id: 4, name: '서초구', description: '교대역 앞 외 4건', count: 5 },
+  { id: 5, name: '관악구', description: '서울대입구역 앞 외 3건', count: 4 },
+  { id: 6, name: '동작구', description: '노량진역 앞 외 2건', count: 3 },
+  { id: 7, name: '영등포구', description: '여의도공원 앞 외 6건', count: 7 },
+  { id: 8, name: '마포구', description: '홍대입구역 앞 외 5건', count: 6 },
+  { id: 9, name: '성동구', description: '왕십리역 앞 외 4건', count: 5 },
 ];
 
-export default function LedDisplay() {
-  return (
-    <main className="min-h-screen flex flex-col">
-      <Nav
-        className="absolute top-0 left-0 w-full z-50"
-        TextInvert
-        variant="photo"
-      />
+export default function LEDDisplayPage() {
+  const [showBanner, setShowBanner] = useState(true);
 
-      <div className="relative w-full h-[50vh]">
-        <Image
-          src="/images/led-display.png"
-          layout="fill"
-          objectFit="cover"
-          className="z-0"
-          alt="디지털사이니지"
-        />
-        <div className="absolute flex flex-col top-1/2 left-1.9/4 transform -translate-x-1/2 -translate-y-1/2 lg:text-3.75 sm:text-1.7 z-10 text-white gap-[1.25rem]">
-          <div className="text-1.25 font-weight-500">전자게시대</div>
-          <div className="lg:text-3.75 sm:text-1.7 font-weight-700 text-gmarket">
-            MOVE ON THE SCREEN
-          </div>
-          <div className="text-1.25 font-weight-500">전자게시대</div>
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setShowBanner(scrollY < 200);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-white pt-[10rem]">
+      <Nav variant="default" TextInvert={showBanner} />
+      <div className="bg-black">
+        <div
+          className={`transition-all duration-500 ${
+            showBanner ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+        >
+          <RollingBanner />
         </div>
       </div>
-
-      {/* Content Section */}
-      <div className="flex-grow">
-        <motion.div
-          initial="initial"
-          animate="animate"
-          variants={fadeInUp}
-          className="container mx-auto px-4 py-20"
-        >
-          {/* District Navigation */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {districts.map((district) => (
-              <Link
-                key={district.name}
-                href={district.href}
-                className="w-[18.1875rem] py-[3.4375rem] px-[0.6875rem] h-[4.9375rem] bg-white rounded-[1.25rem] shadow-lg p-4 text-center hover:shadow-md transition-shadow border border-gray-100 justify-center items-center"
-              >
-                <div className="flex items-center justify-around gap-[2rem]">
-                  <div>
-                    <span className="text-gray-700 text-2.5 font-weight-700">
-                      {district.name}
-                    </span>
-                    <div className="text-gray-400 text-0.875 mt-4">
-                      송출사이즈 800*416 픽셀
-                    </div>
-                  </div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="29"
-                    viewBox="0 0 16 29"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 26.5L14 14.5L2 2.5"
-                      stroke="#AAAAAA"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+          {districts.map((district, index) => (
+            <Link
+              key={district.id}
+              href={`/led-display/${district.name}`}
+              className={`group block p-6 border-16 border-gray-200 rounded-32 hover:border-gray-400 transition-all duration-300 ${
+                index % 2 === 0 ? 'md:translate-y-8' : ''
+              }`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-medium">{district.name}</h3>
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-black transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-gray-600 mb-2">{district.description}</p>
+              <p className="text-sm text-gray-400">전체 {district.count}건</p>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   );
