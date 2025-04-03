@@ -51,7 +51,7 @@ const Section = ({
   list,
 }: SectionProps) => {
   return (
-    <section className="py-[2.5rem] md:py-[10rem] sm:py-[5rem]">
+    <section className="h-screen w-full flex items-center snap-start">
       <motion.div
         variants={staggerContainer}
         initial="initial"
@@ -96,28 +96,30 @@ const Section = ({
           </div>
         </motion.div>
         <motion.div variants={fadeInUp} className="flex-1 w-full">
-          <motion.div
-            variants={fadeInUp}
-            className="relative aspect-[1/2] md:aspect-[2/1] w-full sm:w-[20rem] sm:h-[8.75rem]"
-          >
-            <Image
-              src={imageSrc}
-              alt={imageAlt}
-              fill
-              className="object-cover"
-            />
-          </motion.div>
-          <motion.div variants={fadeInUp} className="mt-[1.25rem] md:mt-4">
-            {list.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="lg:text-1.125 sm:text-0.875 md:mb-[1rem] leading-[1.5] lg:line-height-1.125 sm:line-height-1.375"
-              >
-                {item}
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="flex flex-col space-y-6">
+            <motion.div
+              variants={fadeInUp}
+              className="relative w-full h-64 md:h-96"
+            >
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                className="object-cover rounded-lg"
+              />
+            </motion.div>
+            <motion.div variants={fadeInUp} className="space-y-3">
+              {list.map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  className="lg:text-1.125 sm:text-0.875 md:mb-[1rem] leading-[1.5] lg:line-height-1.125 sm:line-height-1.375"
+                >
+                  {item}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </motion.div>
     </section>

@@ -1,30 +1,32 @@
 import Nav from '../components/Nav';
 import Section from '../components/Section';
 import FAQ from '../components/FAQ';
-import Footer from '../components/Footer';
+//import Footer from '../components/Footer';
 
 export default function Home() {
   return (
     <main>
       <Nav />
-      <Section
-        title={
-          <div text="display">
-            MOVE ON <br /> THE SCREEN
-          </div>
-        }
-        subtitle="전자게시대"
-        description="한 번의 광고, 수천 번의 노출"
-        imageSrc="/images/landing-1.png"
-        imageAlt="Screen section image"
-        buttonText="더 알아보기"
-        list={[
-          '-도심속 핵심위치의 중소기업, 소상공인을 위한  유일한 공식 광고매체',
-          '-15초영상이미지 하루 180회 이상 노출로 비용 대비 월등한 광고효과',
-          '-다양한 영상디자인으로 풍부한 가치 창출',
-          '-전국 6개 지자체 25기 이상 운영',
-        ]}
-      />
+      <div className="pt-[3rem]">
+        <Section
+          title={
+            <div text="display">
+              MOVE ON <br /> THE SCREEN
+            </div>
+          }
+          subtitle="전자게시대"
+          description="한 번의 광고, 수천 번의 노출"
+          imageSrc="/images/landing-1.png"
+          imageAlt="Screen section image"
+          buttonText="더 알아보기"
+          list={[
+            '-도심속 핵심위치의 중소기업, 소상공인을 위한  유일한 공식 광고매체',
+            '-15초영상이미지 하루 180회 이상 노출로 비용 대비 월등한 광고효과',
+            '-다양한 영상디자인으로 풍부한 가치 창출',
+            '-전국 6개 지자체 25기 이상 운영',
+          ]}
+        />
+      </div>
       <Section
         title={
           <div text="display">
