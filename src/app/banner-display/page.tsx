@@ -85,8 +85,9 @@ export default function BannerDisplayPage() {
       const scrollPosition = window.scrollY;
       setShowDistricts(scrollPosition > 100);
 
-      // Adjust banner height based on scroll position
-      const newHeight = Math.max(250, 400 - scrollPosition * 0.5);
+      // Calculate new height (75% of original when scrolled)
+      const minHeight = 300; // 75% of 400
+      const newHeight = Math.max(minHeight, 400 - scrollPosition * 0.5);
       setBannerHeight(newHeight);
     };
     window.addEventListener('scroll', handleScroll);
@@ -97,54 +98,63 @@ export default function BannerDisplayPage() {
     <main className="min-h-screen bg-white">
       <Nav variant="default" />
 
-      {/* Header Section */}
-      <section className="flex items-center justify-center gap-4 mx-auto px-4 pt-[7rem] pb-[2rem] text-center">
-        <div className="text-2.5 font-700 mb-3">현수막게시대</div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="334"
-          height="2"
-          viewBox="0 0 334 2"
-          fill="none"
-        >
-          <path d="M0.5 1H333.5" stroke="black" />
-        </svg>
-        <div className="text-1.5 font-500 text-gray-600">
-          MOVE ON THE SCREEN
-        </div>
-      </section>
+      {/* Fixed Header and Banner Container */}
+      <div className="sticky top-[5.5rem] bg-white z-10">
+        {/* Header Section */}
+        <section className="flex items-center justify-center gap-4 mx-auto px-4 pt-[2rem] pb-[2rem] text-center">
+          <div className="text-2.5 font-700">현수막게시대</div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="334"
+            height="2"
+            viewBox="0 0 334 2"
+            fill="none"
+          >
+            <path d="M0.5 1H333.5" stroke="black" />
+          </svg>
+          <div className="text-1.5 font-500 text-gray-600">
+            MOVE ON THE SCREEN
+          </div>
+        </section>
 
-      {/* Banner Section */}
-      <section className="container mx-auto px-4 mb-12">
-        <div
-          className="relative rounded-2xl overflow-hidden transition-all duration-300"
-          style={{ height: `${bannerHeight}px` }}
+        {/* Banner Section */}
+        <section
+          className={`${showDistricts && 'container'} mx-auto px-4 mb-12"`}
         >
-          {bannerImages.map((src, index) => (
-            <Image
-              key={src}
-              src={src}
-              alt={`Banner ${index + 1}`}
-              fill
-              className={`
-                object-cover
-                transition-opacity duration-500
-                ${currentImageIndex === index ? 'opacity-100' : 'opacity-0'}
-              `}
-              priority
-            />
-          ))}
-        </div>
-      </section>
+          <div
+            className="relative rounded-2xl overflow-hidden transition-all duration-300"
+            style={{ height: `${bannerHeight}px` }}
+          >
+            {bannerImages.map((src, index) => (
+              <Image
+                key={src}
+                src={src}
+                alt={`Banner ${index + 1}`}
+                fill
+                className={`
+                  object-cover
+                  transition-opacity duration-500
+                  ${currentImageIndex === index ? 'opacity-100' : 'opacity-0'}
+                `}
+                priority
+              />
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* Districts Grid */}
       <section
         className={`
           fixed inset-0 bg-white transition-transform duration-500
-          ${showDistricts ? 'translate-y-[300px]' : 'translate-y-full'}
+          ${
+            showDistricts
+              ? 'translate-y-[8rem] translate-x-[59.1875rem]'
+              : 'translate-y-full'
+          }
         `}
       >
-        <div className="container mx-auto px-4 py-12">
+        <div className="container px-4 py-12">
           <div className="grid grid-cols-4 gap-[1px] bg-gray-100">
             {districts.map((district) => (
               <Link
@@ -153,26 +163,38 @@ export default function BannerDisplayPage() {
                 className={`
                   ${district.bgColor}
                   hover:opacity-90 transition-all p-6 text-white
-                  flex flex-col min-h-[200px] relative
+                  flex items-center justify-between min-h-[200px] relative
                 `}
               >
                 {/* District name in top right */}
-                <div className="absolute top-6 right-6 text-lg font-medium">
-                  {district.name}
-                </div>
+                <div className="flex flex-col gap-8">
+                  <div className=" text-2.5 font-[700]">{district.name}</div>
 
-                {/* Main content */}
-                <div className="mt-16">
-                  <h3 className="text-2 font-700 mb-2">유동인구</h3>
-                  <p className="text-1 font-500 opacity-80">
-                    {district.description}
-                  </p>
+                  {/* Main content */}
+
+                  <div className="text-1 font-500 opacity-80">
+                    송출사이즈 800*416 <br /> 픽셀 유동인구 : -명 <br />
+                    소비자트렌드 :
+                  </div>
                 </div>
 
                 {/* Bottom section */}
-                <div className="flex items-center justify-between mt-auto">
-                  <span className="text-sm">게시대 {district.count}개</span>
-                  <span className="text-xl">→</span>
+                <div className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="29"
+                    viewBox="0 0 17 29"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.625 26.5L14.625 14.5L2.625 2.5"
+                      stroke="white"
+                      stroke-width="4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </div>
               </Link>
             ))}
