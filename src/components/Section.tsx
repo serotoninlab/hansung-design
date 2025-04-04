@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { JSX, useEffect } from 'react';
+import { JSX } from 'react';
 import { motion } from 'framer-motion';
 
 interface SectionProps {
@@ -89,12 +89,12 @@ const Section = ({
               </motion.div>
             </div>
             <motion.div variants={fadeInUp}>
-              <button
+              <a
                 href={buttonUrl}
-                className="inline-block bg-black text-white lg:w-[23rem] md:w-[27.5rem] lg:h-[4.75rem] lg:py-[1.625rem] md:py-[1.625rem] lg:px-[8rem] md:px-[8rem] rounded-full hover:bg-gray-800 transition-colors mobile-subtitle font-bold lg:text-1.5 sm:text-1 sm:text-1 sm:w-[10.5rem] sm:h-[2.9rem]"
+                className="inline-block bg-black text-white lg:w-[23rem] md:w-[27.5rem] lg:h-[4.75rem] lg:py-[1.625rem] md:py-[1.625rem] lg:px-[8rem] md:px-[8rem] rounded-full hover:bg-gray-800 transition-colors mobile-subtitle font-bold lg:text-1.5 sm:text-1 sm:text-1 sm:w-[10.5rem] sm:h-[2.9rem] underline-none"
               >
                 {buttonText}
-              </button>
+              </a>
             </motion.div>
           </div>
         </motion.div>
