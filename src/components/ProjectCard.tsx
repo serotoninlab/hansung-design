@@ -45,7 +45,9 @@ export default function ProjectCard({
               <span className="text-sm mb-2 block opacity-80">{subtitle}</span>
             )}
             <h3
-              className={`${isLarge ? 'text-2xl' : 'text-xl'} font-bold mb-2`}
+              className={`${
+                isLarge ? 'text-2xl' : 'text-xl'
+              } font-bold mb-2 gmarket`}
             >
               {title}
             </h3>

@@ -39,7 +39,7 @@ export default function DigitalSignage() {
         />
         <div className="absolute flex flex-col items-start top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 text-white gap-[1.25rem]">
           <div className="text-1.25">디지털사이니지</div>
-          <div className="lg:text-4.375 sm:text-1.7 font-bold font-gmarket">
+          <div className="lg:text-4.375 sm:text-1.7 font-bold gmarket">
             MOVE ON THE FUTURE
           </div>
           <div className="text-1.25">광고를 혁신하다, 공간을 스마트하게</div>

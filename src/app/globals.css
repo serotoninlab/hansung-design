@@ -1,5 +1,8 @@
 @unocss all;
 
+@import url('https://cdn.jsdelivr.net/gh/leetaewook/gmarket-sans-dynamic-subset/GmarketSans.css');
+
+/* 나머지 스타일 */
 :root {
   --background: #fff;
   --foreground: #000;
@@ -15,7 +18,12 @@
 
 body {
   background: var(--background);
-  font-family: Pretendard, Gmarket, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* GmarketSans is only applied when the gmarket class is explicitly used */
+.gmarket {
+  font-family: 'GmarketSans', sans-serif;
 }
 
 a {
@@ -32,32 +40,4 @@ button {
   background: transparent;
   border: none;
   padding: 0;
-}
-/* app/globals.css 또는 styles/globals.css */
-@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
-
-/* 또는 직접 선언 */
-@font-face {
-  font-family: 'GmarketSans';
-  font-weight: 300;
-  font-style: normal;
-  src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2')
-    format('woff2');
-  font-display: swap;
-}
-@font-face {
-  font-family: 'GmarketSans';
-  font-weight: 500;
-  font-style: normal;
-  src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansMedium.woff2')
-    format('woff2');
-  font-display: swap;
-}
-@font-face {
-  font-family: 'GmarketSans';
-  font-weight: 700;
-  font-style: normal;
-  src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansBold.woff2')
-    format('woff2');
-  font-display: swap;
 }

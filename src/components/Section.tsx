@@ -91,7 +91,7 @@ const Section = ({
             <motion.div variants={fadeInUp}>
               <a
                 href={buttonUrl}
-                className="inline-block bg-black text-white lg:w-[23rem] md:w-[27.5rem] lg:h-[4.75rem] lg:py-[1.625rem] md:py-[1.625rem] lg:px-[8rem] md:px-[8rem] rounded-full hover:bg-gray-800 transition-colors mobile-subtitle font-bold lg:text-1.5 sm:text-1 sm:text-1 sm:w-[10.5rem] sm:h-[2.9rem] underline-none"
+                className=" bg-black text-white lg:w-[23rem] md:w-[27.5rem] lg:h-[4.75rem] lg:py-[1.625rem] md:py-[1.625rem] lg:px-[8rem] md:px-[8rem] rounded-full hover:bg-gray-800 transition-colors mobile-subtitle font-bold lg:text-1.5 sm:text-1 sm:text-1 sm:w-[10.5rem] sm:h-[2.9rem] underline-none flex justify-center items-center"
               >
                 {buttonText}
               </a>
