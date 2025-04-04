@@ -49,7 +49,7 @@ export default function PublicDesignPage() {
       <Nav variant="default" />
 
       {/* Header Section */}
-      <section className="container mx-auto px-4 pt-[7rem] pb-[3rem]">
+      <section className="container mx-auto px-4 pt-[6rem] pb-[3rem]">
         <h1 className="text-3.75 font-[700] mb-4">공공디자인</h1>
         <p className="text-1.25 font-[500] text-gray-600">
           도시의 일상에서 만나는 시간과 공간의 경험 디자인
@@ -57,10 +57,10 @@ export default function PublicDesignPage() {
       </section>
 
       {/* Main Photos Section - Zigzag Layout */}
-      <section className="container mx-auto px-4 pb-[5rem] overflow-hidden">
+      <section className=" mx-auto px-4 pb-[5rem] overflow-hidden">
         <div className="flex gap-6 justify-center">
           {/* Left Photo */}
-          <div className="w-[25rem] relative h-[31.25rem] mt-[100px]">
+          <div className="w-[25.8125rem] relative h-[31.25rem] mt-[150px]">
             <Image
               src="/images/landing-3.png"
               alt="Public Design 1"
@@ -70,7 +70,7 @@ export default function PublicDesignPage() {
           </div>
 
           {/* Middle Photo */}
-          <div className="w-[62.3125rem] relative h-[34.375rem]">
+          <div className="w-[62.3125rem] relative h-[34.375rem] mt-[4rem]">
             <Image
               src="/images/landing-3.png"
               alt="Public Design 2"
@@ -80,7 +80,7 @@ export default function PublicDesignPage() {
           </div>
 
           {/* Right Photo */}
-          <div className="w-[25rem] relative h-[31.25rem] mt-[200px]">
+          <div className="w-[25.8125rem] relative h-[30.25rem] ">
             <Image
               src="/images/landing-3.png"
               alt="Public Design 3"
@@ -94,7 +94,6 @@ export default function PublicDesignPage() {
       {/* Projects Grid Section */}
       <section className="container mx-auto px-4 py-[5rem]">
         <div className="flex flex-col gap-6">
-          {/* First row - Large card first, single card in small section */}
           <div className="h-[400px]">
             <ProjectRow
               projects={firstRowProjects}
