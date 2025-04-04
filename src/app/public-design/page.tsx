@@ -1,159 +1,118 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Nav from '../../components/Nav';
-import ItemList from '../../components/ItemList';
-import { useState } from 'react';
+import ProjectRow from '../../components/ProjectRow';
+import { ProjectItem } from '../../components/ProjectRow';
 
-const fadeInUp = {
-  initial: { y: 60, opacity: 0 },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.6, ease: 'easeOut' },
+// Define the project items for the first row
+const firstRowProjects: ProjectItem[] = [
+  {
+    imageSrc: '/images/public-design-image2.png',
+    title: '브랜드 아이템',
+    subtitle: '간판개선사업',
+    description: '도시의 새로운 경험을 만드는 브랜드',
   },
-};
+  {
+    imageSrc: '/images/public-design-image2.png',
+    title: '공공디자인',
+    subtitle: '서브타이틀',
+    description: '도시 경관을 아름답게 만드는 디자인',
+  },
+];
 
-interface DesignItem {
-  id: number;
-  title: string;
-  subtitle: string;
-  image: string;
-  tags: string[];
-  location: string;
-  status: string;
-  spots: number | string;
-}
+// Define the project items for the second row
+const secondRowProjects: ProjectItem[] = [
+  {
+    imageSrc: '/images/public-design-image2.png',
+    title: '공공시설물',
+    subtitle: '서브타이틀',
+    description: '도시의 기능을 높이는 시설물',
+  },
+  {
+    imageSrc: '/images/public-design-image2.png',
+    title: '스마트 시티',
+    subtitle: '서브타이틀',
+    description: '미래 도시의 새로운 가능성',
+  },
+  {
+    imageSrc: '/images/public-design-image2.png',
+    title: '도시 경관',
+    subtitle: '서브타이틀',
+    description: '도시 환경을 개선하는 디자인',
+  },
+];
 
-const designItems: DesignItem[] = Array(12)
-  .fill(null)
-  .map((_, index) => ({
-    id: index + 1,
-    title: '울림픽대교 남단사거리 앞',
-    subtitle: '(남단 유수지앞)',
-    image: '/images/public-design.png',
-    tags: ['전시대', '울산구'],
-    location: '방이동',
-    status: '진행중',
-    spots: index < 4 ? 12 - index * 3 : '-',
-  }));
-
-const ViewTypeButton = ({
-  icon,
-  label,
-  isActive,
-  onClick,
-}: {
-  icon: string;
-  label: string;
-  isActive: boolean;
-  onClick: () => void;
-}) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center gap-2 px-4 py-2 rounded ${
-      isActive ? 'bg-black text-white' : 'text-gray-600'
-    }`}
-  >
-    <Image
-      src={icon}
-      alt={label}
-      width={20}
-      height={20}
-      className={isActive ? 'invert' : ''}
-    />
-    <span>{label}</span>
-  </button>
-);
-
-export default function PublicDesign() {
-  const [viewType, setViewType] = useState<'location' | 'gallery' | 'list'>(
-    'gallery'
-  );
-
-  const handleItemSelect = (selectedItems: number[]) => {
-    console.log('Selected items:', selectedItems);
-  };
-
-  const renderGalleryView = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {designItems.map((item, index) => (
-        <div key={index} className="flex flex-col">
-          <div className="relative aspect-[1/1] w-full overflow-hidden rounded-lg">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="mt-4">
-            <div className="flex gap-2 mb-2">
-              {item.tags.map((tag, tagIndex) => (
-                <span
-                  key={tagIndex}
-                  className="px-2 py-1 bg-gray-100 text-gray-600 text-0.875 rounded"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h3 className="text-1 font-medium">{item.title}</h3>
-            <p className="text-0.875 text-gray-600">{item.subtitle}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-
+export default function PublicDesignPage() {
   return (
-    <main className="min-h-screen flex flex-col bg-white">
+    <main className="min-h-screen bg-white">
       <Nav variant="default" />
 
-      <div className="container mx-auto px-4 pt-[7rem]">
-        <h1 className="text-2.25 font-bold mb-8">공공디자인</h1>
+      {/* Header Section */}
+      <section className="container mx-auto px-4 pt-[7rem] pb-[3rem]">
+        <h1 className="text-3.75 font-[700] mb-4">공공디자인</h1>
+        <p className="text-1.25 font-[500] text-gray-600">
+          도시의 일상에서 만나는 시간과 공간의 경험 디자인
+        </p>
+      </section>
 
-        {/* View Type Selector */}
-        <div className="flex items-center gap-4 mb-8 border-b border-gray-200 pb-4">
-          <ViewTypeButton
-            icon="/svg/map-pin.svg"
-            label="지도로 보기"
-            isActive={viewType === 'location'}
-            onClick={() => setViewType('location')}
-          />
-          <ViewTypeButton
-            icon="/svg/gallery.svg"
-            label="갤러리로 보기"
-            isActive={viewType === 'gallery'}
-            onClick={() => setViewType('gallery')}
-          />
-          <ViewTypeButton
-            icon="/svg/list.svg"
-            label="목록으로 보기"
-            isActive={viewType === 'list'}
-            onClick={() => setViewType('list')}
-          />
-          <div className="ml-auto">
-            <select className="border border-gray-200 rounded-lg px-4 py-2">
-              <option>전체보기</option>
-            </select>
+      {/* Main Photos Section - Zigzag Layout */}
+      <section className="container mx-auto px-4 pb-[5rem] overflow-hidden">
+        <div className="flex gap-6 justify-center">
+          {/* Left Photo */}
+          <div className="w-[25rem] relative h-[31.25rem] mt-[100px]">
+            <Image
+              src="/images/landing-3.png"
+              alt="Public Design 1"
+              fill
+              className="object-cover rounded-2xl"
+            />
+          </div>
+
+          {/* Middle Photo */}
+          <div className="w-[62.3125rem] relative h-[34.375rem]">
+            <Image
+              src="/images/landing-3.png"
+              alt="Public Design 2"
+              fill
+              className="object-cover rounded-2xl"
+            />
+          </div>
+
+          {/* Right Photo */}
+          <div className="w-[25rem] relative h-[31.25rem] mt-[200px]">
+            <Image
+              src="/images/landing-3.png"
+              alt="Public Design 3"
+              fill
+              className="object-cover rounded-2xl"
+            />
           </div>
         </div>
+      </section>
 
-        {/* Content Section */}
-        <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-          {viewType === 'list' ? (
-            <ItemList
-              items={designItems}
-              onItemSelect={handleItemSelect}
-              showFooterInfo={false}
+      {/* Projects Grid Section */}
+      <section className="container mx-auto px-4 py-[5rem]">
+        <div className="flex flex-col gap-6">
+          {/* First row - Large card first, single card in small section */}
+          <div className="h-[400px]">
+            <ProjectRow
+              projects={firstRowProjects}
+              largeCardFirst={true}
+              splitSmallSection={false}
             />
-          ) : (
-            renderGalleryView()
-          )}
-        </motion.div>
-      </div>
+          </div>
+
+          {/* Second row - Small section first (split into two cards), then large card */}
+          <div className="h-[400px]">
+            <ProjectRow
+              projects={secondRowProjects}
+              largeCardFirst={false}
+              splitSmallSection={true}
+            />
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
