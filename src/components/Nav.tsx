@@ -108,21 +108,21 @@ const Nav = ({
   }, []);
 
   const getMenuItemStyles = (isSelected: boolean) => {
-    // If scrolled, always use black text
+    if (isSelected) {
+      return 'bg-black text-white rounded-full px-[0.8125rem] py-[0.6875rem]';
+    }
+
+    // If scrolled, use black text
     if (isScrolled) {
-      return isSelected
-        ? 'text-black bg-white px-[0.8125rem] py-[0.6875rem] font-weight-700'
-        : 'text-black';
+      return 'text-black';
     }
 
     // Original styling based on variant when not scrolled
     switch (variant) {
       case 'photo':
-        return isSelected
-          ? 'text-black bg-white px-[0.8125rem] py-[0.6875rem] font-weight-700'
-          : 'text-white';
+        return 'text-white';
       case 'mixed':
-        return isSelected ? 'bg-white text-black' : 'text-white';
+        return 'text-white';
       default:
         return 'text-black';
     }

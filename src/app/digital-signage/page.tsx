@@ -29,6 +29,7 @@ export default function DigitalSignage() {
       />
 
       <div className="relative w-full h-[50vh]">
+        <div>디지털사이니지</div>
         <Image
           src="/images/digital-signage-main.png"
           alt="디지털사이니지"
