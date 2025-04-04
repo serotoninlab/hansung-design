@@ -98,8 +98,8 @@ export default function BannerDisplayPage() {
     <main className="min-h-screen bg-white">
       <Nav variant="default" />
 
-      {/* Fixed Header and Banner Container */}
-      <div className="sticky top-[5.5rem] bg-white z-10">
+      {/* Fixed Header - Always visible */}
+      <div className="sticky top-[5.5rem] bg-white z-20">
         {/* Header Section */}
         <section className="flex items-center justify-center gap-4 mx-auto px-4 pt-[2rem] pb-[2rem] text-center">
           <div className="text-2.5 font-700">현수막게시대</div>
@@ -116,7 +116,10 @@ export default function BannerDisplayPage() {
             MOVE ON THE SCREEN
           </div>
         </section>
+      </div>
 
+      {/* Banner Container */}
+      <div className="sticky top-[calc(5.5rem+4rem)] bg-white z-10">
         {/* Banner Section */}
         <section
           className={`${showDistricts && 'container'} mx-auto px-4 mb-12"`}
@@ -143,18 +146,18 @@ export default function BannerDisplayPage() {
         </section>
       </div>
 
-      {/* Districts Grid */}
+      {/* Districts Grid - Fixed to show vertically below the banner */}
       <section
         className={`
-          fixed inset-0 bg-white transition-transform duration-500
+          fixed left-0 right-0 bg-white transition-transform duration-500 z-0
           ${
             showDistricts
-              ? 'translate-y-[8rem] translate-x-[59.1875rem]'
+              ? 'translate-y-[calc(5.5rem+8rem+' + bannerHeight + 'px)]'
               : 'translate-y-full'
           }
         `}
       >
-        <div className="container px-4 py-12">
+        <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-4 gap-[1px] bg-gray-100">
             {districts.map((district) => (
               <Link
@@ -166,19 +169,18 @@ export default function BannerDisplayPage() {
                   flex items-center justify-between min-h-[200px] relative
                 `}
               >
-                {/* District name in top right */}
+                {/* New layout structure with flex column */}
                 <div className="flex flex-col gap-8">
-                  <div className=" text-2.5 font-[700]">{district.name}</div>
+                  <div className="text-2.5 font-[700]">{district.name}</div>
 
                   {/* Main content */}
-
                   <div className="text-1 font-500 opacity-80">
                     송출사이즈 800*416 <br /> 픽셀 유동인구 : -명 <br />
                     소비자트렌드 :
                   </div>
                 </div>
 
-                {/* Bottom section */}
+                {/* Right arrow icon */}
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -190,9 +192,9 @@ export default function BannerDisplayPage() {
                     <path
                       d="M2.625 26.5L14.625 14.5L2.625 2.5"
                       stroke="white"
-                      stroke-width="4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </div>
