@@ -25,7 +25,7 @@ const fadeInUp = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: 'easeOut',
     },
   },
@@ -50,59 +50,14 @@ const Section = ({
   buttonUrl = '#',
   list,
 }: SectionProps) => {
-  // CSS Scroll Snap 대신 JavaScript를 사용하여 더 정밀한 스크롤 제어
-  useEffect(() => {
-    const handleScrollSnap = () => {
-      // 현재 페이지에 있는 모든 섹션을 가져옴
-      const sections = document.querySelectorAll('section');
-
-      // 현재 스크롤 위치와 가장 가까운 섹션 찾기
-      let currentSection = null;
-      let minDistance = Infinity;
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          currentSection = section;
-        }
-      });
-
-      // 스크롤이 멈추면 가장 가까운 섹션으로 스크롤
-      if (currentSection && minDistance > 50) {
-        // 50px 이상 차이날 때만 스냅
-        currentSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    };
-
-    // 스크롤 이벤트에 스로틀 적용
-    let scrollTimeout: NodeJS.Timeout;
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScrollSnap, 200);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
   return (
-    <section className="h-screen w-full flex items-center justify-center ">
+    <section className="h-screen w-full flex items-center justify-center scroll-container">
       <motion.div
         variants={staggerContainer}
         initial="initial"
         whileInView="animate"
-        viewport={{ once: false, amount: 0.3 }} // once: false로 변경해서 매번 애니메이션 재실행
-        className={` px-[1.25rem] md:px-[1rem] flex flex-col ${
+        viewport={{ once: false, amount: 0.2 }}
+        className={`scroll-area px-[1.25rem] md:px-[1rem] flex flex-col ${
           reverse ? 'md:flex-row-reverse' : 'md:flex-row'
         } items-start gap-[2.5rem] md:gap-12`}
       >
