@@ -43,8 +43,8 @@ export default function ProjectRow({
   // Render the row with large card first
   if (largeCardFirst) {
     return (
-      <div className={`grid grid-cols-3 gap-6 ${className}`}>
-        <div className="col-span-2 h-[400px]">
+      <div className={`grid grid-cols-3 gap-6 ${className} h-[32rem]`}>
+        <div className="col-span-2 h-[32rem]">
           <ProjectCard
             imageSrc={projects[0].imageSrc}
             title={projects[0].title}
@@ -58,7 +58,7 @@ export default function ProjectRow({
         <div
           className={`col-span-1 ${
             splitSmallSection ? 'grid grid-rows-2 gap-6' : ''
-          } h-[400px]`}
+          } h-[32rem]`}
         >
           {splitSmallSection ? (
             <>
@@ -94,11 +94,11 @@ export default function ProjectRow({
 
   // Render the row with small card first
   return (
-    <div className={`grid grid-cols-3 gap-6 ${className}`}>
+    <div className={`grid grid-cols-3 gap-6 ${className} h-[32rem]`}>
       <div
         className={`col-span-1 ${
           splitSmallSection ? 'grid grid-rows-2 gap-6' : ''
-        } h-[400px]`}
+        } h-[32rem]`}
       >
         {splitSmallSection ? (
           <>
@@ -129,7 +129,7 @@ export default function ProjectRow({
         )}
       </div>
 
-      <div className="col-span-2 h-[400px]">
+      <div className="col-span-2 h-[32rem]">
         <ProjectCard
           imageSrc={
             splitSmallSection ? projects[2].imageSrc : projects[1].imageSrc

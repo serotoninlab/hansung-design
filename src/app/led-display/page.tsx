@@ -45,7 +45,12 @@ export default function LEDDisplayPage() {
   return (
     <main className="min-h-screen bg-white pt-[10rem]">
       <Nav variant="default" TextInvert={showBanner} />
-      <div className="bg-black">
+
+      <div className="bg-black ">
+        <div className="container mx-auto px-4 py-12 text-white items-center flex flex-col gap-4">
+          <div className="text-1.5">MOVE ON THE SCREEN</div>
+          <div className="text-2.5 font-700">LED 전자게시대</div>
+        </div>
         <div
           className={`transition-all duration-500 ${
             showBanner ? 'opacity-100' : 'opacity-0 pointer-events-none'

@@ -24,7 +24,7 @@ export default function ProjectCard({
   return (
     <div
       className={`
-        relative group rounded-2xl overflow-hidden w-full
+        relative group rounded-2xl overflow-hidden w-full 
         ${gridRowSpan ? 'row-span-2' : ''}
         ${isLarge ? 'col-span-2' : ''}
         ${className}

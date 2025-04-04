@@ -95,7 +95,7 @@ export default function BannerDisplayPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white relative pb-[800px]">
       <Nav variant="default" />
 
       {/* Fixed Header - Always visible */}
@@ -146,10 +146,10 @@ export default function BannerDisplayPage() {
         </section>
       </div>
 
-      {/* Districts Grid - Fixed to show vertically below the banner */}
+      {/* Districts Grid - Absolute to show vertically below the banner */}
       <section
         className={`
-          fixed left-0 right-0 bg-white transition-transform duration-500 z-0
+          absolute left-0 right-0 bg-white transition-transform duration-500 z-0
           ${
             showDistricts
               ? 'translate-y-[calc(5.5rem+8rem+' + bannerHeight + 'px)]'
@@ -157,7 +157,7 @@ export default function BannerDisplayPage() {
           }
         `}
       >
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-12 mt-[40rem]">
           <div className="grid grid-cols-4 gap-[1px] bg-gray-100">
             {districts.map((district) => (
               <Link
@@ -203,6 +203,8 @@ export default function BannerDisplayPage() {
           </div>
         </div>
       </section>
+
+      {/* Footer - Positioned at the bottom */}
     </main>
   );
 }

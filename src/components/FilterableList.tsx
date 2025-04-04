@@ -76,10 +76,10 @@ const FilterableList = ({
       {/* Date and Location Filters */}
       <div className="bg-gray-50 p-8 rounded-lg mb-6">
         <div className="flex flex-wrap gap-8">
-          <div className="flex-1">
+          <div className="">
             <div className="text-gray-600 mb-2">주문일</div>
             <div className="flex items-center gap-2">
-              <div className="relative flex-1">
+              <div className="relative">
                 <input
                   type="text"
                   value={startDate}
@@ -88,7 +88,7 @@ const FilterableList = ({
                     setShowEndCalendar(false);
                   }}
                   readOnly
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2 pr-10 cursor-pointer"
+                  className="w-1/2 border border-gray-200 rounded-lg px-4 py-2 pr-10 cursor-pointer"
                   placeholder="YYYY.MM.DD"
                 />
                 <button
@@ -96,7 +96,7 @@ const FilterableList = ({
                     setShowStartCalendar(true);
                     setShowEndCalendar(false);
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  className="absolute right-14 top-1/2 -translate-y-1/2"
                 >
                   <svg
                     className="w-5 h-5 text-gray-400"
@@ -114,8 +114,8 @@ const FilterableList = ({
                   />
                 )}
               </div>
-              <span className="text-gray-400">~</span>
-              <div className="relative flex-1">
+              <div className="text-gray-400">~</div>
+              <div className="relative ">
                 <input
                   type="text"
                   value={endDate}
@@ -124,7 +124,7 @@ const FilterableList = ({
                     setShowStartCalendar(false);
                   }}
                   readOnly
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2 pr-10 cursor-pointer"
+                  className="w-1/2  border border-gray-200 rounded-lg px-4 py-2 pr-10 cursor-pointer"
                   placeholder="YYYY.MM.DD"
                 />
                 <button
@@ -132,7 +132,7 @@ const FilterableList = ({
                     setShowEndCalendar(true);
                     setShowStartCalendar(false);
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  className="absolute right-13 top-1/2 -translate-y-1/2"
                 >
                   <svg
                     className="w-5 h-5 text-gray-400"
