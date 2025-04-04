@@ -50,7 +50,7 @@ export default function PublicDesignPage() {
 
       {/* Header Section */}
       <section className="container mx-auto px-4 pt-[6rem] pb-[3rem]">
-        <h1 className="text-3.75 font-[700] mb-4 font-gmarket">공공디자인</h1>
+        <h1 className="text-3.75 font-[700] mb-4 font-gmarket ">공공디자인</h1>
         <p className="text-1.25 font-[500] text-gray-600">
           도시의 일상에서 만나는 시간과 공간의 경험 디자인
         </p>
