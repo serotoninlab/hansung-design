@@ -51,6 +51,7 @@ export default function MyPage() {
                 <Link
                   key={tab.name}
                   href={tab.href}
+                  onClick={() => setActiveTab(tab.name)}
                   className={`px-4 py-3 rounded ${
                     activeTab === tab.name
                       ? 'bg-black text-white'

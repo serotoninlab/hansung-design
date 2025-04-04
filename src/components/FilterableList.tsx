@@ -17,16 +17,16 @@ interface ListItem {
 interface FilterableListProps {
   items: ListItem[];
   onItemSelect?: (selectedItems: number[]) => void;
-  showDateFilter?: boolean;
-  showLocationFilter?: boolean;
+  // showDateFilter?: boolean;
+  // showLocationFilter?: boolean;
   showCategoryFilter?: boolean;
 }
 
 const FilterableList = ({
   items,
   onItemSelect,
-  showDateFilter = true,
-  showLocationFilter = true,
+  // showDateFilter = true,
+  // showLocationFilter = true,
   showCategoryFilter = true,
 }: FilterableListProps) => {
   const [startDate, setStartDate] = useState('2025.02.06');
