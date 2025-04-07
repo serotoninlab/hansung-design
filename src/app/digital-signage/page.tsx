@@ -16,7 +16,7 @@ const galleryImages = [
   },
   {
     id: 2,
-    src: '/images/digital-signage-main2.png',
+    src: '/images/landing-2.png',
     mainKeyword: '메인키워드',
     title: '상품이름2',
     subtitle: '서브타이틀',
@@ -37,7 +37,7 @@ const galleryImages = [
   },
   {
     id: 5,
-    src: '/images/landing-3.png',
+    src: '/images/landing-1.png',
     mainKeyword: '메인키워드',
     title: '상품이름5',
     subtitle: '서브타이틀',
