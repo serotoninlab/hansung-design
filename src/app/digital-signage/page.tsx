@@ -9,27 +9,40 @@ import RollingGallery from '../../components/RollingGallery';
 const galleryImages = [
   {
     id: 1,
-    src: '/images/digital-signage-main2.png',
+    src: '/images/digital-signage-main.png',
     mainKeyword: '메인키워드',
-    title: '상품이름',
+    title: '상품이름1',
     subtitle: '서브타이틀',
   },
   {
     id: 2,
     src: '/images/digital-signage-main2.png',
     mainKeyword: '메인키워드',
-    title: '상품이름',
+    title: '상품이름2',
     subtitle: '서브타이틀',
   },
   {
     id: 3,
-    src: '/images/digital-signage-main2.png',
+    src: '/images/landing-1.png',
     mainKeyword: '메인키워드',
-    title: '상품이름',
+    title: '상품이름3',
+    subtitle: '서브타이틀',
+  },
+  {
+    id: 4,
+    src: '/images/landing-2.png',
+    mainKeyword: '메인키워드',
+    title: '상품이름4',
+    subtitle: '서브타이틀',
+  },
+  {
+    id: 5,
+    src: '/images/landing-3.png',
+    mainKeyword: '메인키워드',
+    title: '상품이름5',
     subtitle: '서브타이틀',
   },
 ];
-
 const fadeInUp = {
   initial: { y: 60, opacity: 0 },
   animate: {
@@ -40,8 +53,9 @@ const fadeInUp = {
 };
 
 const signageItems = Array(12).fill({
-  title: '장성종합운동장 사거리앞',
-  subtitle: '(실내체육관 방향)',
+  title: '상품 타이틀',
+  category: '카테고리',
+  description: '설명',
   image: '/images/digital-signage-grid-example.png',
 });
 
@@ -51,11 +65,11 @@ export default function DigitalSignagePage() {
       <Nav variant="default" />
 
       {/* Title Section */}
-      <section className="container mx-auto px-4 pt-[6rem] pb-[3rem]">
-        <h1 className="text-2.5 font-700 mb-4 gmarket">디지털사이니지</h1>
-        <p className="text-1.25 text-gray-600">
+      <section className="container mx-auto px-4 pt-[6rem] pb-[1rem]">
+        <div className="text-2.5 font-700 mb-4 gmarket">디지털사이니지</div>
+        <div className="text-1.25 text-gray-600">
           광고를 혁신하다, 공간을 스마트하게
-        </p>
+        </div>
       </section>
 
       {/* Header Section with Rolling Gallery */}
@@ -83,9 +97,16 @@ export default function DigitalSignagePage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-4">
-                  <h3 className="text-1 font-medium">{item.title}</h3>
-                  <p className="text-0.875 text-gray-600">{item.subtitle}</p>
+                <div className="mt-4 flex flex-col gap-2 items-start">
+                  <div className="flex gap-2">
+                    <div className="text-0.75 font-700  text-white bg-black px-3 py-2 rounded-full flex items-center justify-center">
+                      {item.category}
+                    </div>
+                    <div className="text-0.75 font-700 text-white bg-black px-3 py-2 rounded-full flex items-center justify-center">
+                      {item.description}
+                    </div>
+                  </div>
+                  <div className="text-1.5 font-400 pl-1">{item.title}</div>
                 </div>
               </div>
             ))}
