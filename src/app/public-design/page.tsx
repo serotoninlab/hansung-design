@@ -60,7 +60,7 @@ export default function PublicDesignPage() {
 
       {/* Projects Grid Section */}
       <section className="container mx-auto px-4 pb-[12rem] ">
-        <div className="flex flex-col gap-[8rem] ">
+        <div className="flex flex-col gap-[12rem] ">
           <div className="h-[400px]">
             <ProjectRow
               projects={firstRowProjects}
