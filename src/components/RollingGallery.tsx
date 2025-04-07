@@ -23,26 +23,25 @@ export default function ProgressiveCarousel({
 }: ProgressiveCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [containerOffset, setContainerOffset] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
-  // Auto-play functionality
+  // Auto-play
   useEffect(() => {
-    if (isHovering) return; // Don't auto-play if user is interacting
-
+    if (isHovering) return;
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % images.length);
     }, autoPlayInterval);
-
     return () => clearInterval(interval);
   }, [autoPlayInterval, images.length, isHovering]);
 
-  // Calculate all visible indices with proper wrapping
+  // Calculate visible indices
   const getVisibleIndices = () => {
     const indices = [];
-    // Get 2 images before and 2 images after the active one
     for (let i = -2; i <= 2; i++) {
       const index = (activeIndex + i + images.length) % images.length;
       indices.push({ index, position: i });
@@ -50,10 +49,17 @@ export default function ProgressiveCarousel({
     return indices;
   };
 
-  // Handle mouse events for manual scrolling
+  // Calculate center offset (optional, rough mock - can adjust based on real layout)
+  useEffect(() => {
+    const centerImageWidth = 600;
+    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+    const offset = centerImageWidth / 2 - screenWidth / 2;
+    setContainerOffset(offset);
+  }, [activeIndex]);
+
+  // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!carouselRef.current) return;
-
     isDragging.current = true;
     startX.current = e.pageX - carouselRef.current.offsetLeft;
     scrollLeft.current = carouselRef.current.scrollLeft;
@@ -62,55 +68,72 @@ export default function ProgressiveCarousel({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current || !carouselRef.current) return;
-
     const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX.current) * 2; // Scroll speed multiplier
+    const walk = (x - startX.current) * 2;
     carouselRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
   const handleMouseUp = () => {
     isDragging.current = false;
-
-    // Determine which direction to scroll based on movement
     if (carouselRef.current) {
       const currentScroll = carouselRef.current.scrollLeft;
       const diff = currentScroll - scrollLeft.current;
 
       if (Math.abs(diff) > 50) {
-        // Only trigger if significant movement
         if (diff > 0) {
           setActiveIndex(
             (current) => (current - 1 + images.length) % images.length
           );
-        } else if (diff < 0) {
+        } else {
           setActiveIndex((current) => (current + 1) % images.length);
         }
       }
     }
-
-    setTimeout(() => setIsHovering(false), 1000); // Resume auto-play after 1 second
+    setTimeout(() => setIsHovering(false), 1000);
   };
 
   const handleMouseLeave = () => {
     isDragging.current = false;
+    setHoveredIndex(null);
     setTimeout(() => setIsHovering(false), 1000);
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden ">
+    <div className="relative w-full  overflow-hidden">
       <div
         ref={carouselRef}
-        className="flex justify-center items-center  cursor-grab active:cursor-grabbing h-[90%]"
+        className="flex justify-center items-center cursor-grab active:cursor-grabbing h-[90%]"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="flex items-center justify-center gap-2">
+        <div
+          className="flex items-center justify-center"
+          style={{
+            gap: '1.25rem',
+            transform: `translateX(-${containerOffset}px)`,
+            transition: 'transform 0.5s ease-in-out',
+          }}
+        >
           {getVisibleIndices().map(({ index, position }) => {
-            // Calculate size and opacity based on position from center
             const absPosition = Math.abs(position);
-            const scale = absPosition === 0 ? 1 : absPosition === 1 ? 0.8 : 0.6;
+            const isCenter = position === 0;
+            const isHovered = hoveredIndex === index;
+
+            let width = '18.75rem';
+            let height = '24.75rem';
+
+            if (absPosition === 1) {
+              width = '28.25rem';
+              height = '35.25rem';
+            }
+
+            if (isCenter) {
+              width = isHovered ? '80.25rem' : '31.5rem';
+              height = '40.5625rem';
+            }
+
             const opacity =
               absPosition === 0 ? 1 : absPosition === 1 ? 0.7 : 0.4;
             const zIndex = 10 - absPosition;
@@ -118,39 +141,49 @@ export default function ProgressiveCarousel({
             return (
               <div
                 key={`${index}-${position}`}
-                className="transition-all duration-300 ease-in-out px-2 h-full"
+                className="transition-all duration-500 ease-in-out overflow-hidden rounded-lg"
                 style={{
-                  transform: `scale(${scale})`,
+                  width,
+                  height,
                   opacity,
                   zIndex,
+                  aspectRatio: '25 / 33',
+                }}
+                onClick={() => {
+                  if (!isCenter) {
+                    setActiveIndex(index);
+                    setHoveredIndex(null); // 클릭 시 hover 상태 초기화
+                    setIsHovering(true);
+                    setTimeout(() => setIsHovering(false), 1000);
+                  }
                 }}
               >
                 <div
-                  className={`relative w-96 h-128 overflow-hidden rounded-lg transition-all duration-500 ease-in-out ${
-                    absPosition === 0 ? 'hover:scale-150 hover:z-20' : ''
-                  }`}
+                  className="relative w-full h-full transition-all duration-500 ease-in-out rounded-lg overflow-hidden"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Image
                     src={images[index].src}
                     alt={images[index].title}
                     fill
-                    className="object-cover"
+                    className={`object-cover transition-all duration-500 ${
+                      isCenter && !isHovered ? 'object-left' : 'object-center'
+                    }`}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  {absPosition === 0 && (
+                  {isCenter && (
                     <div className="absolute bottom-6 left-6 bg-opacity-50 p-2 rounded">
                       <div className="text-white text-sm font-medium">
                         {images[index].keyword}
                       </div>
-
-                      <div className="text-white text-1.25 font-500 pb-2">
+                      <div className="text-white text-xl font-medium pb-2">
                         {images[index].mainKeyword}
                       </div>
-                      <div className="text-white text-2.5 font-700">
+                      <div className="text-white text-4xl font-bold">
                         {images[index].title}
                       </div>
-
-                      <div className="text-white text-1.25 font-500 mt-1">
+                      <div className="text-white text-xl font-medium mt-1">
                         {images[index].subtitle}
                       </div>
                     </div>
@@ -160,23 +193,6 @@ export default function ProgressiveCarousel({
             );
           })}
         </div>
-      </div>
-
-      {/* Navigation dots */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === activeIndex ? 'bg-white w-6' : 'bg-gray-400'
-            }`}
-            onClick={() => {
-              setActiveIndex(index);
-              setIsHovering(true);
-              setTimeout(() => setIsHovering(false), 1000);
-            }}
-          />
-        ))}
       </div>
     </div>
   );
